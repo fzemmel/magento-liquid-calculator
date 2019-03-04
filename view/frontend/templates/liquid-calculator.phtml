@@ -1,0 +1,27 @@
+<?php
+/**
+ * @copyright Copyright (c) Felix Zemmel
+ *
+ * @see PROJECT_LICENSE.txt
+ */
+
+/** @var \Magento\Framework\View\Element\Template\ $block */
+
+?>
+<script type="text/x-magento-init">
+    {
+        "#liquid-calculator": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "liquid-calculator": {
+                        "component": "Felix_LiquidCalculator/js/liquid-calculator",
+                        "template": "Felix_LiquidCalculator/liquid-calculator"
+                    }
+                }
+            }
+        }
+    }
+</script>
+<div id="liquid-calculator" data-bind="scope: 'liquid-calculator'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>

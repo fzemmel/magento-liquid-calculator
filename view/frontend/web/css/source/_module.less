@@ -1,0 +1,68 @@
+/**
+ * @copyright Copyright (c) Felix Zemmel
+ *
+ * @see PROJECT_LICENSE.txt
+ */
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+
+    .liquid-calculator {
+        &__fieldset {
+            background-color: @color-white-smoke;
+            border: 0;
+            margin: 0;
+            padding: @indent__base;
+        }
+
+
+        &__total {
+            font-size: @font-size__xl;
+            font-weight: @font-weight__bold;
+        }
+
+        .field {
+            + .field {
+                margin-top: @indent__s;
+            }
+        }
+
+        .label {
+            display: block;
+        }
+
+        input {
+            &[type="range"] {
+                margin: @indent__xs 0 0;
+                width: 100%;
+            }
+        }
+    }
+}
+
+
+//
+//  > @screen__s
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__s) {
+
+    .liquid-calculator {
+        .lib-vendor-prefix-display(flex);
+
+        &__block {
+            .lib-vendor-prefix-flex-basis(50%);
+
+            &:nth-child(1) {
+                padding-right: @indent__base;
+            }
+
+            &:nth-child(2) {
+                padding-left: @indent__base;
+            }
+        }
+    }
+}

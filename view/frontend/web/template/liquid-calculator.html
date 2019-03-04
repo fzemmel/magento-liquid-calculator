@@ -1,0 +1,112 @@
+<h1 data-bind="i18n: 'Liquid Calculator'"></h1>
+<div class="liquid-calculator">
+    <div class="liquid-calculator__block block">
+        <h2 data-bind="i18n: 'User input'"></h2>
+        <form>
+            <fieldset class="liquid-calculator__fieldset">
+                <div class="field field-total-amount">
+                    <label class="label" for="total-liquid-qty">
+                        <span data-bind="i18n: 'Desired liquid quantity:'"></span>
+                        <strong>
+                            <span data-bind="text: totalLiquidQty"></span>
+                            <span data-bind="i18n: 'ml'"></span>
+                        </strong>
+                    </label>
+
+                    <div class="control">
+                        <input data-bind="textInput: totalLiquidQty" type="range" id="total-liquid-qty" name="total-liquid-qty"
+                               class="input-text" autocomplete="off" min="100" max="1000" step="10">
+                    </div>
+                </div>
+
+                <div class="field field-aroma">
+                    <label class="label" for="flavor-precentage">
+                        <span data-bind="i18n: 'Aroma content:'"></span>
+                        <strong>
+                            <span data-bind="text: flavorPercentage"></span>
+                            %
+                        </strong>
+                    </label>
+
+                    <div class="control">
+                        <input data-bind="textInput: flavorPercentage" type="range" id="flavor-precentage" name="flavor-precentage"
+                               class="input-text" autocomplete="off" min="0.5" max="25" step="0.5">
+                    </div>
+                </div>
+
+                <div class="field field-nicotine-base">
+                    <label class="label" for="nicotine-base">
+                        <span data-bind="i18n: 'Strength of nicotine shots:'"></span>
+                        <strong>
+                            <span data-bind="text: nicBase"></span>
+                            <span data-bind="i18n: 'mg/ml'"></span>
+                        </strong>
+                    </label>
+
+                    <div class="control">
+                        <input data-bind="textInput: nicBase" type="range" id="nicotine-base" name="nicotine-base"
+                               class="input-text" autocomplete="off" min="3" max="25" step="1">
+                    </div>
+                </div>
+
+                <div class="field field-nicotine-liquid">
+                    <label class="label" for="nicotine-liquid">
+                        <span data-bind="i18n: 'Desired nicotine strength:'"></span>
+                        <strong>
+                            <span data-bind="text: nicLiquid"></span>
+                            <span data-bind="i18n: 'mg/ml'"></span>
+                        </strong>
+                    </label>
+
+                    <div class="control">
+                        <input data-bind="textInput: nicLiquid" type="range" id="nicotine-liquid" name="nicotine-liquid"
+                               class="input-text" autocomplete="off" min="0.5" max="25" step="0.5">
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="liquid-calculator__block block">
+        <h2 data-bind="i18n: 'Liquid recipe'"></h2>
+        <table class="liquid-calculator__results table">
+            <thead>
+            <tr>
+                <th data-bind="i18n: 'Content'"></th>
+                <th data-bind="i18n: 'Amount'"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-bind="i18n: 'PG/VG nicotine shots:'"></td>
+                    <td>
+                        <span data-bind="text: calcNic()"></span>
+                        <span data-bind="i18n: 'ml'"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-bind="i18n: 'PG/VG base (without nicotine):'"></td>
+                    <td>
+                        <span data-bind="text: calcBase()"></span>
+                        <span data-bind="i18n: 'ml'"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-bind="i18n: 'Flavor:'"></td>
+                    <td>
+                        <span data-bind="text: calcFlavor()"></span>
+                        <span data-bind="i18n: 'ml'"></span>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot class="liquid-calculator__total">
+                <tr>
+                    <td data-bind="i18n: 'Total:'"></td>
+                    <td>
+                        <span data-bind="text: totalLiquidQty"></span>
+                        <span data-bind="i18n: 'ml'"></span>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
