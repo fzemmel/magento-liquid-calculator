@@ -5,24 +5,45 @@
  */
 
 define([
+    'jquery',
     'uiComponent'
-], function (Component) {
+], function ($, Component) {
     'use strict';
 
     return Component.extend({
         defaults: {
             template: 'Felix_LiquidCalculator/liquid-calculator',
+            isVisible: false,
             totalLiquidQty: 500,
             flavorPercentage: 10,
             nicBase: 20,
             nicLiquid: 6,
-            liquidRatio: 0,
-            tracks: {
-                totalLiquidQty: true,
-                flavorPercentage: true,
-                nicBase: true,
-                nicLiquid: true
-            }
+            liquidRatio: 0
+        },
+
+        initObservable: function () {
+            this._super();
+
+            this.observe([
+                'isVisible',
+                'totalLiquidQty',
+                'flavorPercentage',
+                'nicBase',
+                'nicLiquid'
+            ]);
+
+            return this;
+        },
+
+        initialize: function() {
+            this._super();
+
+            $('body').trigger('processStart');
+        },
+
+        isLoaded: function () {
+            $('body').trigger('processStop');
+            this.isVisible();
         },
 
         // TODO FZ: Add validation for not possible cases:
@@ -33,8 +54,7 @@ define([
          * Calculate ratio of nicotine between desired liquid and nicotine shots
          */
         calcLiquidRatio: function () {
-            this.liquidRatio = (this.nicLiquid / this.nicBase).toFixed(4);
-            console.log(this.liquidRatio);
+            this.liquidRatio = (this.nicLiquid() / this.nicBase());
 
             return this.liquidRatio;
         },
@@ -42,22 +62,22 @@ define([
         /**
          * Calculate amount of flavor
          */
-        calcFlavor: function () {
-            return ((this.totalLiquidQty / 100) * this.flavorPercentage).toFixed(2);
+        calcFlavor: function (value) {
+            value = ((this.totalLiquidQty() / 100) * this.flavorPercentage()).toFixed(1);
+
+            return value;
         },
 
         /**
          * Calculate amount of vg/pg base
          */
-        calcBase: function () {
-            let value;
+        calcBase: function (value) {
 
-            if (this.nicBase == this.nicLiquid) {
+            if (this.nicBase() == this.nicLiquid()) {
                 value = 0;
             } else {
                 this.calcLiquidRatio();
-
-                value = (this.totalLiquidQty - ((this.totalLiquidQty / 100) * this.flavorPercentage) - (this.totalLiquidQty * this.liquidRatio)).toFixed(1);
+                value = (this.totalLiquidQty() - ((this.totalLiquidQty() / 100) * this.flavorPercentage()) - (this.totalLiquidQty() * this.liquidRatio)).toFixed(1);
             }
 
             return value;
@@ -66,10 +86,11 @@ define([
         /**
          * Calculate amount of nicotine shots
          */
-        calcNic: function () {
+        calcNic: function (value) {
             this.calcLiquidRatio();
+            value = (this.totalLiquidQty() * this.liquidRatio).toFixed(1);
 
-            return (this.totalLiquidQty * this.liquidRatio).toFixed(1);
+            return value;
         }
     });
 });
